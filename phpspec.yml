@@ -1,0 +1,8 @@
+suites:
+  FfuenfCommon:
+    namespace: FfuenfCommon
+    psr4_prefix: FfuenfCommon
+    spec_path: "%paths.config%/tests"
+    src_path: "%paths.config%"
+
+bootstrap: tests/Unit/bootstrap.php

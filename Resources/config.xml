@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.5/engine/Shopware/Components/Plugin/schema/config.xsd">
+    <elements>
+        <element type="select">
+            <name>debug</name>
+            <label lang="de">debug logging aktiviert</label>
+            <label lang="en">debug logging enabled</label>
+            <value>0</value>
+            <store>
+                <option>
+                    <value>1</value>
+                    <label lang="de">Ja</label>
+                    <label lang="en">Yes</label>
+                </option>
+                <option>
+                    <value>0</value>
+                    <label lang="de">Nein</label>
+                    <label lang="en">No</label>
+                </option>
+            </store>
+        </element>
+        <element type="text">
+            <name>base64logo</name>
+            <label lang="de">base64 enkodiertes Logo</label>
+            <label lang="en">base64 encoded logo</label>
+            <value>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</value>
+        </element>
+        <element type="text">
+            <name>environment_variable</name>
+            <label lang="de">Umgebungsvariable für Umgebung</label>
+            <label lang="en">Environmentvariable for environment</label>
+            <value>SHOPWARE_ENV</value>
+        </element>
+    </elements>
+</config>

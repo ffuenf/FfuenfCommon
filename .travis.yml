@@ -1,0 +1,56 @@
+language: php
+php:
+- 7.0
+- 7.1
+- 7.2
+- 7.3
+matrix:
+  fast_finish: true
+  allow_failures:
+  - php: 7.2
+  - php: 7.3
+sudo: false
+services:
+- mysql
+env:
+  matrix:
+  - SHOPWARE_VERSION="5.5"
+  global:
+  - PLUGIN_NAME=FfuenfCommon
+  - SHOPWARE_DIRECTORY="${HOME}/shopware"
+  - PLUGIN_DIRECTORY="${SHOPWARE_DIRECTORY}/custom/plugins"
+cache:
+  apt: true
+  directories:
+  - "${HOME}/.composer/cache"
+install:
+- mkdir -p build/logs
+- travis_retry composer update --no-interaction
+before_script:
+- git clone https://github.com/shopware/shopware.git ${SHOPWARE_DIRECTORY} --branch
+  ${SHOPWARE_VERSION}
+- ant -f ${SHOPWARE_DIRECTORY}/build/build.xml -Dapp.host=localhost -Ddb.user=travis
+  -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
+- mv ${TRAVIS_BUILD_DIR} ${PLUGIN_DIRECTORY}/${PLUGIN_NAME}
+- php ${HOME}/shopware/bin/console sw:plugin:refresh
+- php ${HOME}/shopware/bin/console sw:plugin:install ${PLUGIN_NAME}
+- php ${HOME}/shopware/bin/console sw:plugin:activate ${PLUGIN_NAME}
+- cd ${PLUGIN_DIRECTORY}/${PLUGIN_NAME}
+script:
+- composer test
+- composer test-unit
+- composer test-spec
+after_success:
+- "./build.sh $TRAVIS_TAG"
+deploy:
+  skip_cleanup: true
+  provider: releases
+  file_glob: true
+  file: "${PLUGIN_NAME}*.zip"
+  on:
+    tags: true
+  api_key:
+    secure: b/2ovm1hg5WfPYLOSjroU1qhrS281OUn8uboBa4H5tAcmW3TsrlA5mT6plmvxXUevrl5jQ9KIXXGESVTZ0in/u+1qnn6TySO7MJyiVOF8hrUW6EpJBt+eqYJLI7prcOj1amzCnIJq33ocFdYGnssVdjxjAZGM0TpNbEDPJG8jplOdZMdHnwvJlQma1fUDrUXN7X7ciAAFofZhJpWsBW24ZSUl2v9usjUEEVChvROIC4hmP677GCVcjAKAFDvOXhHlmlPUv7CfSO6VTcwwGK/ENNEROwC2F++SOnWh2ANZcIPx4eH00Fa9XwjXexzS9Scclv/hpu3gPTu01ip93EDvxxGlVreC5gHFs9Z0DXD6EQBZ47tWtxyv3u2aJ3vxHStq1ZQZ+tTN/ZoIIvJBtpOI6Ikxb+qXzzNQ79C7Yq4MSTKX8/VxYLqK/l11eyxeQ5uRx9bHJ/sL3kjGXWm8bS/TYdV0skUwQLE+oY1KMjM+8JJi9SwnMZAJuUxf7tg1EwEP42jWuDNMQgh32CmAlmTtFceAgZFZRMox3Kx4RphZQMcp78V+AGfPJU07Vf6inl0DJnxK2SvLQHffhxIQOymDOGv2d5+0rSABeyEo75foZWwhgtF1lvzor4FXZMr4YrBbjc5spflD8mfGQlYfH9Iq3DosBujZKTtnNodalcXpPc=
+notifications:
+  slack:
+    secure: lew9AHR5YwzzWo9iWn552ZHVvKSiXozWRcVW2OTgk/68AbYAB3ZgYGXaiYhnuZT8vVlLWUbdTfhsSzdWhJ2fTc09g57/T9HGFp2JNxYvlJoSQglGFE93Gs+mw8yciH+BYTp5d/76/3xTukEMqbHci88ns0PImgEsmIQXZXIScprA8YfBKjPBXtxoBr40u8zFguMyDyQgZZoYuZthWNzvB51V3FzFQpkww/i/f7bXQxgBHkXGCclXTHVUpkX+E7Imy8C3mKA3H3eTzpe3vEkr4Xk9+OQgucvUaRfqLIjkao2X7qKBS23QEqGPR4/Bnz/5E6hAS30N9Pgu0vkB8sCwg7kudRcrpybfrkbS7tPGpeUF9hjCtN1PLp1orx/IkQcrX94VDs8G6rw22hkDBLHjUsOm+rea2gLI8e5dwClKjHazpRjA1uqlsrHcMI9kAtxiAw/AhY6p/9suzVaiRW6jIzKES1JGLCujUVwct8F92Dg8Lb0hNpwljZVGwIHBPk+VIUxJbI6DtFQ5BB454wCXjH3Tc+yrgP6nwfYCXFZ9fmdv3LCRm8D0aHHUtmJdNSHBelhAxhSBNJbPz/0Ev76lHIIwAkK9YfPZu1Knz1sYb/En8xc+1Lvi4aLSuiAaqa23uF+04Bzor5dUkxvdaY59hdAWIqP+gmLStHXMdAig31M=

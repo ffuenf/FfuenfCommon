@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.5/engine/Shopware/Components/Plugin/schema/plugin.xsd">
+    <label>Ffuenf Basis-Plugin (FfuenfCommon)</label>
+    <version>1.0.1</version>
+    <copyright>(c) by Achim Rosenhagen / ffuenf - Pra &amp; Rosenhagen GbR</copyright>
+    <license>proprietary</license>
+    <link>https://www.ffuenf.de</link>
+    <author>ffuenf</author>
+    <compatibility minVersion="5.5.0"/>
+    <changelog version="1.0.1">
+        <changes lang="en">
+            implement logging
+        </changes>
+        <changes lang="de">
+            Logging Funktionalität
+        </changes>
+    </changelog>
+    <changelog version="1.0.0">
+        <changes lang="en">
+            initial release
+        </changes>
+        <changes lang="de">
+            Erstveröffentlichung
+        </changes>
+    </changelog>
+</plugin>
