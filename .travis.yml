@@ -1,4 +1,10 @@
 language: php
+sudo: false
+cache:
+  apt: true
+  directories:
+  - "$HOME/.composer/cache"
+  - "$HOME/.cache/bin"
 php:
 - 7.0
 - 7.1
@@ -6,12 +12,6 @@ php:
 - 7.3
 matrix:
   fast_finish: true
-  allow_failures:
-  - php: 7.2
-  - php: 7.3
-sudo: false
-services:
-- mysql
 env:
   matrix:
   - SHOPWARE_VERSION="5.5"
@@ -19,38 +19,22 @@ env:
   - PLUGIN_NAME=FfuenfCommon
   - SHOPWARE_DIRECTORY="${HOME}/shopware"
   - PLUGIN_DIRECTORY="${SHOPWARE_DIRECTORY}/custom/plugins"
-cache:
-  apt: true
-  directories:
-  - "${HOME}/.composer/cache"
-install:
-- mkdir -p build/logs
-- travis_retry composer update --no-interaction
-before_script:
-- git clone https://github.com/shopware/shopware.git ${SHOPWARE_DIRECTORY} --branch
-  ${SHOPWARE_VERSION}
-- ant -f ${SHOPWARE_DIRECTORY}/build/build.xml -Dapp.host=localhost -Ddb.user=travis
-  -Ddb.host=127.0.0.1 -Ddb.name=shopware build-unit
-- mv ${TRAVIS_BUILD_DIR} ${PLUGIN_DIRECTORY}/${PLUGIN_NAME}
-- php ${HOME}/shopware/bin/console sw:plugin:refresh
-- php ${HOME}/shopware/bin/console sw:plugin:install ${PLUGIN_NAME}
-- php ${HOME}/shopware/bin/console sw:plugin:activate ${PLUGIN_NAME}
-- cd ${PLUGIN_DIRECTORY}/${PLUGIN_NAME}
+before_install:
+- curl -sSL https://raw.githubusercontent.com/ffuenf/SWTestStand/master/before_install.sh
+  | bash
 script:
-- composer test
-- composer test-unit
-- composer test-spec
+- curl -sSL https://raw.githubusercontent.com/ffuenf/SWTestStand/master/script.sh
+  | bash
 after_success:
-- "./build.sh $TRAVIS_TAG"
+- curl -sSL https://raw.githubusercontent.com/ffuenf/SWTestStand/master/build.sh ${PLUGIN_NAME} ${TRAVIS_TAG}
+  | bash
 deploy:
-  skip_cleanup: true
   provider: releases
+  file:
+  - "${PLUGIN_NAME}-${TRAVIS_TAG}.zip"
+  - "${PLUGIN_NAME}-${TRAVIS_TAG}.tar.gz"
+  skip_cleanup: true
   file_glob: true
-  file: "${PLUGIN_NAME}*.zip"
   on:
+    branch: master
     tags: true
-  api_key:
-    secure: WuRRNu0OVK4JJ6EQJ7YCbYgwzbupWoX8S1yziCc8+j4ael2TK0a+wcMnxVpzZd8SZsyAcYSOj10UjY2HjGHfEez6gRTI2oXmXv+gQ92o3+71EyNP9FlW/kp+ACqrclwzthAt5vbO0KO2XnhL7hopO/DP9lnKSLyNDdj6NLthvvhyooIcFL62yk6ecUZtK23K2mchEyR33W498kZH2ISJL/jmNWTTccPUbaneHuaK4nOBarRxPYFJUu6jy2Y/6f/ELJ0saUB5Ujzx27e78TeRCnxj/B6jdjwWJBF9OMXQRGtzjL9wsZyeAscxqdxk8TyIO5NBsehGcFps0wLG91/IkGS9tQ1oddZKbxezpPYklYxn3TDGZlb3xM4sGqtX+D+aaYlFiNDu+cidQb2RWwLVwjA7w7+XzpNLmUizOLXH6qJCby7v0iQa7qCeLDpK+YaFq4pTAQjWzTv2QR6tUquG8t28fzLp+ibiv5KRFC88ct4YhIrvz5Ay2bW5oKTdW50YIXFMXRkXp44t5HtpCN74FRs7AeIrcFwr8dPSw/p9Clkcn6Bz9Nyt6mqDpZsxyAbIiqqT/sW27tYqJWe+wJYnGvvIVOlJZ+Mp9GTRjgKxkwMh7+SMh4/rbXz5NkSA9VfeI5r89KewYvkouJ6HDJpxsTF+8Tn3iGpILh3OkNNqFeU=
-notifications:
-  slack:
-    secure: U+oi/Uj7eublE6Yo1SUAAsNnu4TMRdlBWerDJtbgjP78I5Yp6QhdHCWzW3MM0iYPE51R5HyYl9OKNyv0T6bc2mQ6GHWrJ+M87M3Wv1p1CxqEf+/U6bbgwiXUeiXpeMt9RFtmtSHHEvqkxquqbVx9Bwp8wWJwuEWC6XHGUN0Q2Yhp5dWapum5xtQv65RsyO/E01MUXSOB3NhuGkeHGLMPuqfOr0OqZQKHV+mdVs1/qSxB8dn37Njd6xBTN9qBSG8A/G5ZhbZaOMDnAxEconIxFrgMJtB412ZOPXq6eEw+TmRcP0kBjdHq+40SajlFHAUjtRUxKCFFFnyE/ziz3eg9x8zgP195uVq+3hDjFsbQFv4e+HrVzGne5AApxJTA/DJorgaHYfqzxBhbCm+k/mGEAKJcMDX1VTxOX7kbpTBfrW/MO3JpIY8eYZBC/tZal0wrjeIZVNtmwDtRHJ/ArWK1QZ3C5vctfCFmPcNiwUF0H6dt/QQjXWTcQ9S/UBAI4Sx5fMXEeHudPM023GXLa8fh0mQ7H/B9Ik3uCUUMdZjLngvCuYq9SezCXHVRiqElNofOjRpArMWWHp/2upMtOC3q6eWXoRL2bl/aGGdftHc+9B38ipkW7l+bQWJS6Rd8aL0BYh+JDOx3zm7A0I+goN6o4kw9BAnq4w1kcHYGfWlV93g=
