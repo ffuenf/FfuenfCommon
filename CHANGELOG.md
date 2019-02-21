@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of FfuenfCommon.
 
+## 1.0.5 (February 21, 2019)
+
+* fix viewDir
+
 ## 1.0.4 (February 21, 2019)
 
 * make backend-design variable via switch

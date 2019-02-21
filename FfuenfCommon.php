@@ -31,7 +31,7 @@ class FfuenfCommon extends Plugin
     public function build(ContainerBuilder $container)
     {
         $container->setParameter('ffuenf_common.plugin_dir', $this->getPath());
-        $container->setParameter('ffuenf_common.view_dir', $this->getPath());
+        $container->setParameter('ffuenf_common.view_dir', $this->getPath() . '/Resources/views');
         parent::build($container);
     }
 
