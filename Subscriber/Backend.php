@@ -31,11 +31,13 @@ class Backend extends AbstractService implements SubscriberInterface
      */
     public function onPostDispatchBackendIndex(Enlight_Event_EventArgs $args)
     {
-        $subject = $args->getSubject();
-        $subject->View()->addTemplateDir($this->viewDirectory);
-        $subject->View()->extendsTemplate('backend/index/ffuenf_common/index.tpl');
-        $environment = getenv($this->config['environment_variable']);
-        $subject->View()->assign('environment', $environment);
-        $subject->View()->assign('base64logo', $this->config['base64logo']);
+        if ((bool)$this->config['backend_design_enabled']) {
+            $subject = $args->getSubject();
+            $subject->View()->addTemplateDir($this->viewDirectory);
+            $subject->View()->extendsTemplate('backend/index/ffuenf_common/index.tpl');
+            $environment = getenv($this->config['environment_variable']);
+            $subject->View()->assign('environment', $environment);
+            $subject->View()->assign('base64logo', $this->config['base64logo']);
+        }
     }
 }
