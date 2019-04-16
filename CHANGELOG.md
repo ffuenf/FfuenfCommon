@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of FfuenfCommon.
 
+## 1.0.6 (April 16, 2019)
+
+* Functions to prevend the plugin from beeing uninstalled or deactivated if there are any other dependent plugins active or installed
+* fix base64logo
+
 ## 1.0.5 (February 21, 2019)
 
 * fix viewDir

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.5/engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>Ffuenf Basis-Plugin (FfuenfCommon)</label>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <copyright>(c) by Achim Rosenhagen / ffuenf - Pra &amp; Rosenhagen GbR</copyright>
     <license>proprietary</license>
     <link>https://www.ffuenf.de</link>
     <author>ffuenf</author>
     <compatibility minVersion="5.5.0"/>
+    <changelog version="1.0.6">
+        <changes lang="en">Functions to prevend the plugin from beeing uninstalled or deactivated if there are any other dependent plugins active or installed</changes>
+        <changes lang="de">Funktionen die das Deinstallieren und Deaktivieren des Plugins verhindern solange weitere abhängige Plugins installiert sind</changes>
+    </changelog>
     <changelog version="1.0.5">
         <changes lang="en">
             fix viewDir
