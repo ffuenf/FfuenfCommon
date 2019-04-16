@@ -48,6 +48,9 @@ class FfuenfCommon extends Plugin
      */
     public function deactivate(DeactivateContext $context)
     {
+        if ($this->isDependentPluginsActive()) {
+            throw new \Exception("Unable to deactivate plugin! There are Plugins installed which may depend on this plugin! Please uninstall them first!", 1);
+        }
         $context->scheduleClearCache(DeactivateContext::CACHE_LIST_ALL);
     }
 
@@ -64,6 +67,9 @@ class FfuenfCommon extends Plugin
      */
     public function uninstall(UninstallContext $context)
     {
+        if ($this->isDependentPluginsActive()) {
+            throw new \Exception("Unable to uninstall plugin! There are Plugins installed which may depend on this plugin! Please uninstall them first!", 1);
+        }
         $context->scheduleClearCache(UninstallContext::CACHE_LIST_ALL);
     }
 
@@ -89,5 +95,22 @@ class FfuenfCommon extends Plugin
     public function disable(DisableContext $context)
     {
         $context->scheduleClearCache(DisableContext::CACHE_LIST_ALL);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDependentPluginsActive() {
+        $modelManager = $this->container->get('models');
+        $pluginRepository = $modelManager->getRepository(Plugin::class);
+        $plugins = $pluginRepository->findAll();
+        foreach($plugins as $plugin) {
+            if($plugin->getName() != 'FfuenfCommon') {
+                if(($plugin->getInstalled() || $plugin->getActive()) && strpos(strtolower($plugin->getName()), 'Ffuenf') !== false) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
