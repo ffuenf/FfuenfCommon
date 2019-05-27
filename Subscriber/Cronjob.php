@@ -12,16 +12,9 @@
 
 namespace FfuenfCommon\Subscriber;
 
-use Doctrine\DBAL\Connection;
 use Enlight\Event\SubscriberInterface;
-use PDO;
-use Shopware\Components\DependencyInjection\Container;
-use Shopware\Components\HttpCache\CacheWarmer;
-use Shopware\Components\HttpCache\UrlProvider\UrlProviderInterface;
-use Shopware\Components\HttpCache\UrlProviderFactoryInterface;
-use Shopware\Components\Routing\Context;
-use Shopware\Models\Shop\Shop;
-use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
+use FfuenfCommon\Service\AbstractService;
+use Enlight_Event_EventArgs;
 
 class Cronjob extends AbstractService implements SubscriberInterface
 {
@@ -36,10 +29,10 @@ class Cronjob extends AbstractService implements SubscriberInterface
     /**
      * Method that gets all ShopIDs and warms all URLs assigned to them.
      *
-     * @param \Enlight_Event_EventArgs $args
+     * @param Enlight_Event_EventArgs $args
      * @return string
      */
-    public function onRunWarmUpCache(\Enlight_Event_EventArgs $args)
+    public function onRunWarmUpCache(Enlight_Event_EventArgs $args)
     {
         $stacksize = $this->config['cachewarmStacksize'];
         try {
