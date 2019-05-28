@@ -40,6 +40,7 @@ class FfuenfCommon extends Plugin
      */
     public function activate(ActivateContext $context)
     {
+        $this->updateCronInfo();
         $context->scheduleClearCache(ActivateContext::CACHE_LIST_ALL);
     }
 
@@ -112,5 +113,28 @@ class FfuenfCommon extends Plugin
             }
         }
         return false;
+    }
+    
+    /**
+     * Method that reads the next time and interval of execution of the ClearHttpCache CronJob and sets these values
+     * in the CompraCacheWarmUp CronJob initially. These values can be changed by the backend admin.
+     * @throws \Enlight_Exception
+     */
+    private function updateCronInfo()
+    {
+        $ClearHttpCacheJob = $this->container->get('cron')->getJobByAction('Shopware_CronJob_ClearHttpCache');
+        if (null === $ClearHttpCacheJob) {
+            return;
+        }
+        $FfuenfCacheWarmUpJob = $this->container->get('cron')->getJobByAction('Shopware_Components_CronJob_FfuenfCacheWarmUpCron');
+        $ClearHttpCacheJobNext = $ClearHttpCacheJob->getNext();
+        $ClearHttpCacheJobInterval = $ClearHttpCacheJob->getInterval();
+        if ($ClearHttpCacheJobInterval) {
+            $FfuenfCacheWarmUpJob->setInterval($ClearHttpCacheJobInterval);
+        }
+        if ($ClearHttpCacheJobNext) {
+            $FfuenfCacheWarmUpJob->setNext($ClearHttpCacheJobNext);
+        }
+        $this->container->get('cron')->updateJob($FfuenfCacheWarmUpJob);
     }
 }

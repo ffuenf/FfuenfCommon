@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of FfuenfCommon.
 
+## 1.0.7 (May 27, 2019)
+
+* add cache warmup cron
+
 ## 1.0.6 (April 16, 2019)
 
 * Functions to prevend the plugin from beeing uninstalled or deactivated if there are any other dependent plugins active or installed
