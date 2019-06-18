@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of FfuenfCommon.
 
+## 1.0.8 (June 18, 2019)
+
+* add csp-reporting controller
+
 ## 1.0.7 (May 27, 2019)
 
 * add cache warmup cron

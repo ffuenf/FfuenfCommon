@@ -50,5 +50,13 @@
             <label lang="en">Environmentvariable for environment</label>
             <value>SHOPWARE_ENV</value>
         </element>
+    <element type="textarea">
+            <name>whitelistIP</name>
+            <label>Whitelist for CSP-Reporting</label>
+            <label lang="de">IP-Adressen Whitelist</label>
+            <options>
+                <helpText>Multiple IPs with a line break</helpText>
+            </options>
+        </element>
     </elements>
 </config>
