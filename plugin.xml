@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.5/engine/Shopware/Components/Plugin/schema/plugin.xsd">
     <label>Ffuenf Basis-Plugin (FfuenfCommon)</label>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <copyright>(c) by Achim Rosenhagen / ffuenf - Pra &amp; Rosenhagen GbR</copyright>
     <license>proprietary</license>
     <link>https://www.ffuenf.de</link>
     <author>ffuenf</author>
     <compatibility minVersion="5.5.0"/>
+    <changelog version="1.0.8">
+        <changes lang="en">add csp-reporting controller</changes>
+        <changes lang="de">Controller für Content-Security-Policy Reports hinzugefügt</changes>
+    </changelog>
     <changelog version="1.0.7">
         <changes lang="en">add cache warmup cron</changes>
         <changes lang="de">Cronjob für Cache-Warming hinzugefügt</changes>

@@ -20,5 +20,9 @@
             <argument type="service" id="service_container" />
             <tag name="shopware.event_subscriber" />
         </service>
+    <service id="ffuenf_common.config" class="Shopware\Components\Plugin\CachedConfigReader">
+            <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
+            <argument type="string">FfuenfCommon</argument>
+        </service>
     </services>
 </container>
