@@ -91,9 +91,9 @@ class CronMonitoring
             if (!isset($this->config['monitoredCronsWarningCount'])) {
                 $this->config['monitoredCronsWarningCount'] = 0;
             }
-            $reminderGap = $this->config['monitoredCronsWarningCount'] * $this->config['monitoredCronsWarningCount'] * 60;
-            if ($reminderGap > 3600) {
-                $reminderGap = 3600; //max reminder gap one hour
+            $reminderGap = 60;
+            if ($reminderGap < $this->config['monitoredCronsReminderGap']) {
+                $reminderGap = $this->config['monitoredCronsReminderGap'];
             }
             if (!isset($this->config['monitoredCronsLastWarning']) || $this->config['monitoredCronsLastWarning'] + $reminderGap < time()) {
                 if ($this->config['monitoredCronsMail'] != '') {
