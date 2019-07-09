@@ -7,7 +7,7 @@
     <link>https://www.ffuenf.de</link>
     <author>ffuenf</author>
     <compatibility minVersion="5.5.0"/>
-    <changelog version="1.0.10">
+    <changelog version="1.0.11">
         <changes lang="en">add cron monitoring</changes>
         <changes lang="de">Cron Monitoring hinzugefügt</changes>
     </changelog>

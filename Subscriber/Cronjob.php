@@ -42,6 +42,7 @@ class Cronjob extends AbstractService implements SubscriberInterface
              * warm up cache with CLI command
              */
             $command = Shopware()->DocPath() . "bin/console sw:warm:http:cache -b=" . $stacksize;
+            exec($command, $retArr, $retVal);
             system($command);
             $time_end = microtime(true);
             $time = $time_end - $time_start;
@@ -60,7 +61,7 @@ class Cronjob extends AbstractService implements SubscriberInterface
         try {
             $time_start = microtime(true);
             $command = Shopware()->DocPath() . 'bin/console ffuenf:cronmonitoring:check';
-            $message = system($command);
+            exec($command, $retArr, $retVal);
             $time_end = microtime(true);
             $time = $time_end - $time_start;
             return 'CronMonitoring erfolgreich ausgeführt!' . PHP_EOL . 'Dauer: ' . round($time, 0) . 'Sekunden';
