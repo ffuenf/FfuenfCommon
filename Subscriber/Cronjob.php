@@ -60,7 +60,7 @@ class Cronjob extends AbstractService implements SubscriberInterface
         try {
             $time_start = microtime(true);
             $command = Shopware()->DocPath() . 'bin/console ffuenf:cronmonitoring:check';
-            system($command);
+            $message = system($command);
             $time_end = microtime(true);
             $time = $time_end - $time_start;
             return 'CronMonitoring erfolgreich ausgeführt!' . PHP_EOL . 'Dauer: ' . round($time, 0) . 'Sekunden';

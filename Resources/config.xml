@@ -113,6 +113,12 @@
             <value>false</value>
             <description lang="de">Die Prüfung erfolgt bei jedem Seitenaufruf. Damit kann die Warnung unabhängig vom Prüf-CronJob erfolgen.</description>
         </element>
+        <element required="true" type="number">
+            <name>monitoredCronsReminderGap</name>
+            <label lang="de">Wiederholte Benachrichtigung</label>
+            <label lang="en">Maximum reminder gap</label>
+            <value>3600</value>
+        </element>
         <element type="number">
             <name>monitoredCronsLastRun</name>
             <label lang="de">Letzter Prüflauf</label>
