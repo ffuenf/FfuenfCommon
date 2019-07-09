@@ -22,7 +22,8 @@ class Cronjob extends AbstractService implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Shopware_Components_CronJob_FfuenfCacheWarmUpCron' => 'onRunWarmUpCache'
+            'Shopware_Components_CronJob_FfuenfCacheWarmUpCron' => 'onRunWarmUpCache',
+            'Shopware_Components_CronJob_FfuenfCronMonitoring'  => 'onCronMonitoring'
         ];
     }
 
@@ -45,6 +46,24 @@ class Cronjob extends AbstractService implements SubscriberInterface
             $time_end = microtime(true);
             $time = $time_end - $time_start;
             return 'Cache wurde erfolgreich aufgewärmt!' . PHP_EOL . 'Dauer: ' . round($time, 0) . 'Sekunden';
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * @param Enlight_Event_EventArgs $args
+     * @return string
+     */
+    public function onCronMonitoring(Enlight_Event_EventArgs $args)
+    {
+        try {
+            $time_start = microtime(true);
+            $command = Shopware()->DocPath() . 'bin/console ffuenf:cronmonitoring:check';
+            system($command);
+            $time_end = microtime(true);
+            $time = $time_end - $time_start;
+            return 'CronMonitoring erfolgreich ausgeführt!' . PHP_EOL . 'Dauer: ' . round($time, 0) . 'Sekunden';
         } catch (\Exception $e) {
             return $e->getMessage();
         }

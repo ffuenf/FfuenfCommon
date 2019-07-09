@@ -21,6 +21,7 @@ use Shopware\Components\Plugin\Context\UpdateContext;
 use Shopware\Components\Plugin\Context\EnableContext;
 use Shopware\Components\Plugin\Context\DisableContext;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Shopware\Models\Mail\Mail;
 
 class FfuenfCommon extends Plugin
 {
@@ -60,6 +61,7 @@ class FfuenfCommon extends Plugin
      */
     public function install(InstallContext $context)
     {
+        $this->createMail();
         $context->scheduleClearCache(InstallContext::CACHE_LIST_ALL);
     }
 
@@ -79,6 +81,7 @@ class FfuenfCommon extends Plugin
      */
     public function update(UpdateContext $context)
     {
+        $this->createMail();
         $context->scheduleClearCache(UpdateContext::CACHE_LIST_ALL);
     }
 
@@ -117,7 +120,7 @@ class FfuenfCommon extends Plugin
     
     /**
      * Method that reads the next time and interval of execution of the ClearHttpCache CronJob and sets these values
-     * in the CompraCacheWarmUp CronJob initially. These values can be changed by the backend admin.
+     * in the CacheWarmUp CronJob initially. These values can be changed by the backend admin.
      * @throws \Enlight_Exception
      */
     private function updateCronInfo()
@@ -136,5 +139,42 @@ class FfuenfCommon extends Plugin
             $FfuenfCacheWarmUpJob->setNext($ClearHttpCacheJobNext);
         }
         $this->container->get('cron')->updateJob($FfuenfCacheWarmUpJob);
+    }
+
+    /**
+     * This function create a new mail template.
+     *
+     * @throws Enlight_Exception
+     */
+    private function createMail()
+    {
+        $mail = $this->container->get('models')->getRepository(Mail::class)->findOneBy(['name' => 'sCRONWARNING']);
+        if ($mail instanceof Mail) {
+            return $mail;
+        }
+        $mail = new Mail();
+        $mail->setDirty(true);
+        $mail->setName('sCRONWARNING');
+        $mail->setFromMail('{config name=mail}');
+        $mail->setFromName('{config name=shopName}');
+        $mail->setSubject('ATTENTION: inactive cronjobs');
+        $mail->setMailtype(Mail::MAILTYPE_SYSTEM);
+        $mail->setIsHtml(true);
+        $mail->setContent('Cron Monitoring
+
+ATTENTION - there are inactive cronjobs:
+{foreach item=cron from=$downCrons}
+- {$cron.name} ({$cron.action}) - last run: {$cron.end}
+{/foreach}');
+        $mail->setContentHtml('<b>Cron Monitoring</b>
+<br /><br />ATTENTION - there are inactive cronjobs:<br /><br />
+<ul>{foreach item=cron from=$downCrons}<li>{$cron.name} ({$cron.action}) - last run: {$cron.end}</li>{/foreach}</ul>');
+        try {
+            $this->container->get('models')->persist($mail);
+            $this->container->get('models')->flush();
+        } catch (Exception $e) {
+            throw new Enlight_Exception("E-Mail-Template sCRONWARNING couldn't be created!");
+        }
+        return $mail;
     }
 }

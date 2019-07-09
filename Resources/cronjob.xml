@@ -8,4 +8,11 @@
         <interval>86400</interval>
         <disableOnError>true</disableOnError>
     </cronjob>
+    <cronjob>
+        <name>FfuenfCronMonitoring</name>
+        <action>Shopware_Components_CronJob_FfuenfCronMonitoring</action>
+        <active>true</active>
+        <interval>120</interval>
+        <disableOnError>false</disableOnError>
+    </cronjob>
 </cronjobs>
