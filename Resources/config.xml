@@ -146,5 +146,29 @@
                 <hidden>true</hidden>
             </options>
         </element>
+        <element type="select">
+            <name>datadog_frontend_logging_enabled</name>
+            <label lang="de">Javascript console logs und Nutzerinteraktionen im Frontend loggen mit DataDog</label>
+            <label lang="en">Monitor JavaScript console logs and user activity with Datadog</label>
+            <value>0</value>
+            <store>
+                <option>
+                    <value>1</value>
+                    <label lang="de">Ja</label>
+                    <label lang="en">Yes</label>
+                </option>
+                <option>
+                    <value>0</value>
+                    <label lang="de">Nein</label>
+                    <label lang="en">No</label>
+                </option>
+            </store>
+        </element>
+        <element type="text">
+            <name>datadog_frontend_logging_client_token</name>
+            <label lang="de">DataDog Client-Token</label>
+            <label lang="en">DataDog  client token</label>
+            <value></value>
+        </element>
     </elements>
 </config>

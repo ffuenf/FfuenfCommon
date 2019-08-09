@@ -28,12 +28,17 @@ class Dispatch extends AbstractService implements SubscriberInterface
 
     public function onPostDispatch(\Enlight_Event_EventArgs $args)
     {
-        /** @var \Enlight_View_Default $view */
         $view = $args->getSubject()->View();
-        /** @var \Enlight_Controller_Request_RequestHttp $request */
         $request = $args->getRequest();
+        $response = $args->getResponse();
+        if (!$request->isDispatched() || $response->isException()) {
+            return;
+        }
         if ($this->config['monitoredCronsOnDispatch']) {
             Shopware()->Container()->get('ffuenf_common.service.cron_monitoring')->check();
+        }
+        if ($this->config['datadog_frontend_logging_enabled'] == 1) {
+            $view->assign('datadogFrontendLoggingClientToken', $this->config['datadog_frontend_logging_client_token']);
         }
     }
 }

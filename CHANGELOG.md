@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of FfuenfCommon.
 
+## 1.1.0 (August 08, 2019)
+
+* add datadog frontend logging
+
 ## 1.0.11 (July 09, 2019)
 ## 1.0.10 (July 09, 2019)
 ## 1.0.9 (July 09, 2019)
