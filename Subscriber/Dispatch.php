@@ -37,8 +37,9 @@ class Dispatch extends AbstractService implements SubscriberInterface
         if ($this->config['monitoredCronsOnDispatch']) {
             Shopware()->Container()->get('ffuenf_common.service.cron_monitoring')->check();
         }
-        if ($this->config['datadog_frontend_logging_enabled'] == 1) {
-            $view->assign('datadogFrontendLoggingClientToken', $this->config['datadog_frontend_logging_client_token']);
+        if ($this->config['datadog_frontend_logging_enabled'] == 1 || $this->config['datadog_real_user_monitoring_enabled'] == 1) {
+            $view->assign('datadogClientToken', $this->config['datadog_client_token']);
+            $view->assign('datadogApplicationId', $this->config['datadog_application_id']);
         }
     }
 }

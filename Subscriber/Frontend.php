@@ -35,7 +35,7 @@ class Frontend extends AbstractService implements SubscriberInterface
     public function onTemplateDirectoriesCollect(\Enlight_Event_EventArgs $args)
     {
         $dirs = $args->getReturn();
-        if ($this->config['datadog_frontend_logging_enabled'] == 1 && $this->config['datadog_frontend_logging_client_token'] != '') {
+        if ($this->config['datadog_frontend_logging_enabled'] == 1 && $this->config['datadog_client_token'] != '' && $this->config['datadog_application_id'] != '') {
             $dirs[] = $this->viewDirectory;
         }
         $args->setReturn($dirs);

@@ -164,10 +164,34 @@
                 </option>
             </store>
         </element>
+        <element type="select">
+            <name>datadog_real_user_monitoring_enabled</name>
+            <label lang="de">DataDog Real User Monitoring aktivieren</label>
+            <label lang="en">DataDog Real User Monitoring enabled</label>
+            <value>0</value>
+            <store>
+                <option>
+                    <value>1</value>
+                    <label lang="de">Ja</label>
+                    <label lang="en">Yes</label>
+                </option>
+                <option>
+                    <value>0</value>
+                    <label lang="de">Nein</label>
+                    <label lang="en">No</label>
+                </option>
+            </store>
+        </element>
         <element type="text">
-            <name>datadog_frontend_logging_client_token</name>
+            <name>datadog_client_token</name>
             <label lang="de">DataDog Client-Token</label>
-            <label lang="en">DataDog  client token</label>
+            <label lang="en">DataDog client token</label>
+            <value></value>
+        </element>
+        <element type="text">
+            <name>datadog_application_id</name>
+            <label lang="de">DataDog Application ID</label>
+            <label lang="en">DataDog application id</label>
             <value></value>
         </element>
     </elements>
