@@ -3,10 +3,11 @@
 {block name="frontend_index_header_javascript_tracking"}
     <script type="text/javascript" src="https://www.datadoghq-browser-agent.com/datadog-logs-us.js"></script>
     <script>
-        DD_LOGS.init({
-            clientToken: "{$datadogClientToken}",
-            forwardErrorsToLogs: true
-        });
+      window.DD_LOGS && DD_LOGS.init({
+        clientToken: "{$datadogClientToken}",
+        forwardErrorsToLogs: true,
+        sampleRate: 100
+      });
     </script>
     <script type="text/javascript" src="https://www.datadoghq-browser-agent.com/datadog-rum-us.js"></script>
     <script>
