@@ -183,6 +183,18 @@
             </store>
         </element>
         <element type="text">
+            <name>datadog_logs_url</name>
+            <label lang="de">DataDog Log Monitoring URL</label>
+            <label lang="en">DataDog log monitoring url</label>
+            <value>https://www.datadoghq-browser-agent.com/datadog-logs-eu.js</value>
+        </element>
+        <element type="text">
+            <name>datadog_rum_url</name>
+            <label lang="de">DataDog Real User Monitoring URL</label>
+            <label lang="en">DataDog real user monitoring url</label>
+            <value>https://www.datadoghq-browser-agent.com/datadog-rum-eu.js</value>
+        </element>
+        <element type="text">
             <name>datadog_client_token</name>
             <label lang="de">DataDog Client-Token</label>
             <label lang="en">DataDog client token</label>
