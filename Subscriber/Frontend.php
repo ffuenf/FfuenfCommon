@@ -25,7 +25,8 @@ class Frontend extends AbstractService implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Theme_Inheritance_Template_Directories_Collected' => 'onTemplateDirectoriesCollect'
+            'Theme_Inheritance_Template_Directories_Collected'      => 'onTemplateDirectoriesCollect',
+            'Enlight_Controller_Action_PostDispatchSecure_Frontend' => 'preloadFonts'
         ];
     }
 
@@ -35,9 +36,58 @@ class Frontend extends AbstractService implements SubscriberInterface
     public function onTemplateDirectoriesCollect(\Enlight_Event_EventArgs $args)
     {
         $dirs = $args->getReturn();
-        if ($this->config['datadog_frontend_logging_enabled'] == 1 && $this->config['datadog_client_token'] != '' && $this->config['datadog_application_id'] != '') {
-            $dirs[] = $this->viewDirectory;
-        }
+        $dirs[] = $this->viewDirectory;
         $args->setReturn($dirs);
+    }
+
+    public function preloadFonts(\Enlight_Event_EventArgs $args)
+    {
+        $view = $args->getSubject()->View();
+        if ($this->config['datadog_frontend_logging_enabled'] == 1 && $this->config['datadog_client_token'] != '' && $this->config['datadog_application_id'] != '') {
+            $view->assign('datadog_enabled', true);
+        }
+        if ($this->config['preloadFonts_enabled']) {
+            $preloadFonts = [];
+            if (in_array('shopware', $this->config['preloadFonts_standard'])) {
+                $preloadFonts[] = ['type' => 'font/woff2', 'url'    => 'themes/frontend/Responsive/frontend/_public/src/fonts/shopware.woff2'];
+                $preloadFonts[] = ['type' => 'font/woff', 'url'     => 'themes/frontend/Responsive/frontend/_public/src/fonts/shopware.woff'];
+                $preloadFonts[] = ['type' => 'font/ttf', 'url'      => 'themes/frontend/Responsive/frontend/_public/src/fonts/shopware.ttf'];
+                $preloadFonts[] = ['type' => 'image/svg+xml', 'url' => 'themes/frontend/Responsive/frontend/_public/src/fonts/shopware.svg'];
+            }
+            if (in_array('captcha', $this->config['preloadFonts_standard'])) {
+                $preloadFonts[] = ['type' => 'font/ttf', 'url' => 'themes/frontend/Responsive/frontend/_public/src/fonts/captcha.ttf'];
+            }
+            $customFonts = explode(PHP_EOL, $this->config['preloadFonts_custom']);
+            $customFonts = array_filter($customFonts);
+            foreach ($customFonts as $customFont) {
+                $mimeType = $this->guessMimeType($customFont);
+                if (!$mimeType)
+                    continue;
+                $preloadFonts[] = [
+                    'type' => $mimeType,
+                    'url'  => $customFont
+                ];
+            }
+            $view->assign('preloadFonts_enabled', true);
+            $view->assign('ffuenfFontPreload', $preloadFonts);
+        }
+    }
+
+    private function guessMimeType(string $customFont) : string
+    {
+        if (strrpos($customFont, '.woff2') !== false) {
+            return 'font/woff2';
+        } elseif (strrpos($customFont, '.woff') !== false) {
+            return 'font/woff';
+        } elseif(strrpos($customFont, '.ttf') !== false) {
+            return 'font/ttf';
+        } elseif (strrpos($customFont, '.eot') !== false) {
+            return 'application/vnd.ms-fontobject';
+        } elseif (strrpos($customFont, '.svg') !== false) {
+            return 'image/svg+xml';
+        } elseif (strrpos($customFont, '.otf') !== false) {
+            return 'font/otf';
+        }
+        return '';
     }
 }

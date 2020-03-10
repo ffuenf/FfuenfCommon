@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of FfuenfCommon.
 
+## 1.2.0 (March 10, 2020)
+
+* add font preloading
+
 ## 1.1.0 (August 08, 2019)
 
 * add datadog frontend logging

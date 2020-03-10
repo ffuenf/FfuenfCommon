@@ -206,5 +206,48 @@
             <label lang="en">DataDog application id</label>
             <value></value>
         </element>
+        <element type="select">
+            <name>preloadFonts_enabled</name>
+            <label lang="de">Schriften vorladen aktivieren</label>
+            <label lang="en">font preloading enabled</label>
+            <value>0</value>
+            <store>
+                <option>
+                    <value>1</value>
+                    <label lang="de">Ja</label>
+                    <label lang="en">Yes</label>
+                </option>
+                <option>
+                    <value>0</value>
+                    <label lang="de">Nein</label>
+                    <label lang="en">No</label>
+                </option>
+            </store>
+        </element>
+        <element type="combo">
+            <name>preloadFonts_standard</name>
+            <label lang="en">preload standard fonts</label>
+            <label lang="de">Standard Schriften vorladen</label>
+            <store>
+                <option>
+                    <value>shopware</value>
+                    <label>Shopware Icons</label>
+                </option>
+                <option>
+                    <value>captcha</value>
+                    <label>Shopware Captcha</label>
+                </option>
+            </store>
+            <options>
+                <multiSelect>true</multiSelect>
+            </options>
+        </element>
+        <element type="textarea">
+            <name>preloadFonts_custom</name>
+            <label lang="en">preload customs fonts</label>
+            <label lang="de">Eigene Schriftarten vorladen</label>
+            <description lang="en">Please enter URL file per line.</description>
+            <description lang="de">Bitte eine URL pro Zeile angeben.</description>
+        </element>
     </elements>
 </config>
