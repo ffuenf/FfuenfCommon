@@ -1,9 +1,9 @@
-<a href="http://www.ffuenf.de" title="ffuenf - code • design • e-commerce"><img src="https://github.com/ffuenf/Ffuenf_Common/blob/master/skin/adminhtml/default/default/ffuenf/ffuenf.png" alt="ffuenf - code • design • e-commerce" /></a>
+<a href="https://www.ffuenf.de" title="ffuenf - code • design • e-commerce"><img src="https://raw.githubusercontent.com/ffuenf/Ffuenf_Common/master/skin/adminhtml/default/default/ffuenf/ffuenf.png" alt="ffuenf - code • design • e-commerce" /></a>
 
 FfuenfCommon
 ============
-[![GitHub tag](https://img.shields.io/github/tag/ffuenf/FfuenfCommon.svg)](https://github.com/ffuenf/FfuenfCommon)
-[![Build Status](https://img.shields.io/travis/ffuenf/FfuenfCommon.svg)](https://travis-ci.org/ffuenf/FfuenfCommon)
+[![GitHub tag](https://img.shields.io/github/tag/ffuenf/docker-shopware-php.svg)](https://github.com/ffuenf/FfuenfCommon)
+[![Build Status](https://img.shields.io/travis/ffuenf/docker-shopware-php.svg)](https://travis-ci.org/ffuenf/FfuenfCommon)
 [![Code Quality](https://scrutinizer-ci.com/g/ffuenf/FfuenfCommon/badges/quality-score.png)](https://scrutinizer-ci.com/g/ffuenf/FfuenfCommon/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/ffuenf/FfuenfCommon/badges/coverage.png)](https://scrutinizer-ci.com/g/ffuenf/FfuenfCommon)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/ffuenf/FfuenfCommon/badges/code-intelligence.svg)](https://scrutinizer-ci.com/code-intelligence)
@@ -17,13 +17,14 @@ Platform
 The following versions are supported and tested:
 
 * Shopware 5.5.x
+* Shopware 5.6.x
 
 Other versions are assumed to work.
 
 Requirements
 ------------
 
-|                                                                              | PHP 7.0           | PHP 7.1           | PHP 7.2           | PHP 7.3           |
+|                                                                              | PHP 7.1           | PHP 7.2           | PHP 7.3           | PHP 7.4           |
 | ---------------------------------------------------------------------------- | ----------------- | ----------------- | ----------------- | ----------------- |
 | [EOL](https://secure.php.net/supported-versions.php) / SEC-FIX / STABLE / RC | EOL               | SEC-FIX           | **STABLE**        | **STABLE**        |
 | automated tests on [travis]                                                  | **required pass** | **required pass** | **required pass** | **required pass** |
@@ -35,7 +36,7 @@ Installation
 
 via zip:
 
-* Download the [latest plugin version](https://github.com/Ffuenf/FfuenfCommon/releases/latest/) (e.g. `FfuenfCommon-1.0.0.zip`)
+* Download the [latest plugin version](https://github.com/Ffuenf/FfuenfCommon/releases/latest/) (e.g. `FfuenfCommon-1.2.0.zip`)
 * Upload and install the plugin using the Plugin-Manager
 
 via git:
@@ -78,7 +79,7 @@ License and Author
 ------------------
 
 - Author:: Achim Rosenhagen (<a.rosenhagen@ffuenf.de>)
-- Copyright:: 2019, ffuenf
+- Copyright:: 2020, ffuenf
 
 The MIT License (MIT)
 

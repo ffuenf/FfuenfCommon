@@ -49,13 +49,13 @@ class Frontend extends AbstractService implements SubscriberInterface
         if ($this->config['preloadFonts_enabled']) {
             $preloadFonts = [];
             if (in_array('shopware', $this->config['preloadFonts_standard'])) {
-                $preloadFonts[] = ['type' => 'font/woff2', 'url'    => 'themes/frontend/Responsive/frontend/_public/src/fonts/shopware.woff2'];
-                $preloadFonts[] = ['type' => 'font/woff', 'url'     => 'themes/frontend/Responsive/frontend/_public/src/fonts/shopware.woff'];
-                $preloadFonts[] = ['type' => 'font/ttf', 'url'      => 'themes/frontend/Responsive/frontend/_public/src/fonts/shopware.ttf'];
-                $preloadFonts[] = ['type' => 'image/svg+xml', 'url' => 'themes/frontend/Responsive/frontend/_public/src/fonts/shopware.svg'];
+                $preloadFonts[] = ['type' => 'font/woff2', 'url'    => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.woff2'];
+                $preloadFonts[] = ['type' => 'font/woff', 'url'     => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.woff'];
+                $preloadFonts[] = ['type' => 'font/ttf', 'url'      => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.ttf'];
+                $preloadFonts[] = ['type' => 'image/svg+xml', 'url' => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.svg'];
             }
             if (in_array('captcha', $this->config['preloadFonts_standard'])) {
-                $preloadFonts[] = ['type' => 'font/ttf', 'url' => 'themes/frontend/Responsive/frontend/_public/src/fonts/captcha.ttf'];
+                $preloadFonts[] = ['type' => 'font/ttf', 'url' => 'themes/Frontend/Responsive/frontend/_public/src/fonts/captcha.ttf'];
             }
             $customFonts = explode(PHP_EOL, $this->config['preloadFonts_custom']);
             $customFonts = array_filter($customFonts);
