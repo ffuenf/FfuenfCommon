@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of FfuenfCommon.
 
+## 1.2.3 (October 2, 2020)
+
+* add testing environment styling
+
 ## 1.2.0 (March 10, 2020)
 
 * add font preloading

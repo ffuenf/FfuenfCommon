@@ -11,7 +11,7 @@
         {$textshadow = '#008a20'}
         {$separator = $bordercolor}
         {$filter = 'hue-rotate(280deg)'}
-    {elseif $environment == 'staging'}
+    {elseif $environment == 'staging' || $environment == 'testing'}
         {$gradients = '165deg, #fffc7d 45%, #dff1f6 95%, #c6eaf6 100%'}
         {$bordercolor = '#e4df00'}
         {$background = '#fff900'}
