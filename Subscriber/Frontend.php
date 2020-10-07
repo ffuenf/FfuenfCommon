@@ -83,13 +83,13 @@ class Frontend extends AbstractService implements SubscriberInterface
         if ($this->config['preloadFonts_enabled']) {
             $preloadFonts = [];
             if (in_array('shopware', $this->config['preloadFonts_standard'])) {
-                $preloadFonts[] = ['type' => 'font/woff2', 'url'    => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.woff2'];
-                $preloadFonts[] = ['type' => 'font/woff', 'url'     => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.woff'];
-                $preloadFonts[] = ['type' => 'font/ttf', 'url'      => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.ttf'];
-                $preloadFonts[] = ['type' => 'image/svg+xml', 'url' => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.svg'];
+                $preloadFonts[] = ['as' => 'font', 'url'  => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.woff2'];
+                $preloadFonts[] = ['as' => 'font', 'url'  => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.woff'];
+                $preloadFonts[] = ['as' => 'font', 'url'  => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.ttf'];
+                $preloadFonts[] = ['as' => 'image', 'url' => 'themes/Frontend/Responsive/frontend/_public/src/fonts/shopware.svg'];
             }
             if (in_array('captcha', $this->config['preloadFonts_standard'])) {
-                $preloadFonts[] = ['type' => 'font/ttf', 'url' => 'themes/Frontend/Responsive/frontend/_public/src/fonts/captcha.ttf'];
+                $preloadFonts[] = ['as' => 'font', 'url' => 'themes/Frontend/Responsive/frontend/_public/src/fonts/captcha.ttf'];
             }
             $customFonts = explode(PHP_EOL, $this->config['preloadFonts_custom']);
             $customFonts = array_filter($customFonts);
@@ -98,8 +98,8 @@ class Frontend extends AbstractService implements SubscriberInterface
                 if (!$mimeType)
                     continue;
                 $preloadFonts[] = [
-                    'type' => $mimeType,
-                    'url'  => $customFont
+                    'as'  => $mimeType,
+                    'url' => $customFont
                 ];
             }
             $view->assign('preloadFonts_enabled', true);
@@ -110,17 +110,17 @@ class Frontend extends AbstractService implements SubscriberInterface
     private function guessMimeType(string $customFont) : string
     {
         if (strrpos($customFont, '.woff2') !== false) {
-            return 'font/woff2';
+            return 'font';
         } elseif (strrpos($customFont, '.woff') !== false) {
-            return 'font/woff';
+            return 'font';
         } elseif(strrpos($customFont, '.ttf') !== false) {
-            return 'font/ttf';
+            return 'font';
         } elseif (strrpos($customFont, '.eot') !== false) {
-            return 'application/vnd.ms-fontobject';
+            return 'font';
         } elseif (strrpos($customFont, '.svg') !== false) {
-            return 'image/svg+xml';
+            return 'image';
         } elseif (strrpos($customFont, '.otf') !== false) {
-            return 'font/otf';
+            return 'font';
         }
         return '';
     }

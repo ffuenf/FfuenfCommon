@@ -8,7 +8,10 @@
     <author>ffuenf</author>
     <compatibility minVersion="5.5.0"/>
     <changelog version="1.2.4">
-        <changes lang="en">add proper SEO-Link for product to transactional emails ({$details.additional_details.articlelink|lower})</changes>
+        <changes lang="en">
+            add proper SEO-Link for product to transactional emails ({$details.additional_details.articlelink|lower})
+            fix font preload type attribute
+        </changes>
     </changelog>
     <changelog version="1.2.3">
         <changes lang="en">add testing environment styling</changes>

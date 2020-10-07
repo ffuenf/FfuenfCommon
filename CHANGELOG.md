@@ -5,6 +5,7 @@ This file is used to list changes made in each version of FfuenfCommon.
 ## 1.2.4 (October 7, 2020)
 
 * add proper SEO-Link for product to transactional emails ({$details.additional_details.articlelink|lower})
+* fix font preload type attribute
 
 ## 1.2.3 (October 2, 2020)
 
