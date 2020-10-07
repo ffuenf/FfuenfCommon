@@ -26,8 +26,42 @@ class Frontend extends AbstractService implements SubscriberInterface
     {
         return [
             'Theme_Inheritance_Template_Directories_Collected'      => 'onTemplateDirectoriesCollect',
-            'Enlight_Controller_Action_PostDispatchSecure_Frontend' => 'preloadFonts'
+            'Enlight_Controller_Action_PostDispatchSecure_Frontend' => 'preloadFonts',
+            'Shopware_Modules_Order_SendMail_FilterVariables'       => 'onSendMailFilterVariables'
         ];
+    }
+
+    /**
+     * Modify mail variables
+     *
+     * @param Enlight_Event_EventArgs $args
+     * @return array
+     */
+    public function onSendMailFilterVariables(Enlight_Event_EventArgs $args)
+    {
+        $return = $args->getReturn();
+        try {
+            $newValues = array();
+            foreach ($return['sOrderDetails'] as $orderDetail) {
+                foreach ($orderDetail as $key => $value) {
+                    if ($key == 'articleID') {
+                        $q = "SELECT path
+                              FROM s_core_rewrite_urls
+                              WHERE org_path = 'sViewport=detail&sArticle=" . $value . "'
+                              AND subshopID = " . Shopware()->Shop()->getId();
+                        $path = Shopware()->Db()->query($q)->fetchAll(\PDO::FETCH_COLUMN);
+                        $orderDetail['additional_details']['articlelink'] = $path[0];
+                    }
+                }
+                $newValues[] = $orderDetail;
+            }
+            $return['sOrderDetails'] = $newValues;
+        } catch (\Exception $e) {
+            if ($this->config['debug']) {
+                $this->logger->log(100, $ex->getMessage());
+            }
+        }
+        return $return;
     }
 
     /**
