@@ -86,7 +86,7 @@ class Dispatch extends AbstractService implements SubscriberInterface
         $controller = $args->getSubject();
         $view = $controller->View();
         if ($this->config['api_log_verbose'] == 1) {
-            $this->getLogger()->info('PAYLOAD: ' . $controller->Request()->getPost());
+            $this->getLogger()->info('PAYLOAD: ' . var_export($controller->Request()->getPost(), true));
         } else {
             $this->getLogger()->info('REQUEST: ' . $controller->Request()->getMethod() . ' - ' . $controller->Request()->getRequestUri());
         }
