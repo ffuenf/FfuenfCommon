@@ -71,7 +71,7 @@ class Dispatch extends AbstractService implements SubscriberInterface
         /** @var $controller \Enlight_Controller_Action */
         $controller = $args->getSubject();
         if ($this->config['api_log_verbose'] == 1) {
-            $this->getLogger()->info('RESPONSE: ' . $controller->Response()->getBody());
+            $this->getLogger()->info('RESPONSE-CODE: ' . $controller->Response()->getHttpResponseCode() . ' RESPONSE: ' . $controller->Response()->getBody());
         } else {
             $this->getLogger()->info('RESPONSE-CODE: ' . $controller->Response()->getHttpResponseCode());
         }
@@ -86,7 +86,12 @@ class Dispatch extends AbstractService implements SubscriberInterface
         $controller = $args->getSubject();
         $view = $controller->View();
         if ($this->config['api_log_verbose'] == 1) {
-            $this->getLogger()->info('PAYLOAD: ' . var_export($controller->Request()->getPost(), true));
+            if (is_array($controller->Request()->getPost())) {
+                $payload = json_encode($controller->Request()->getPost());
+            } else {
+                $payload = var_export($controller->Request()->getPost(), true);
+            }
+            $this->getLogger()->info('REQUEST: ' . $controller->Request()->getMethod() . ' - ' . $controller->Request()->getRequestUri() . ' PAYLOAD: ' . $payload);
         } else {
             $this->getLogger()->info('REQUEST: ' . $controller->Request()->getMethod() . ' - ' . $controller->Request()->getRequestUri());
         }
