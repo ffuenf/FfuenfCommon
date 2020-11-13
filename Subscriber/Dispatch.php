@@ -28,8 +28,8 @@ class Dispatch extends AbstractService implements SubscriberInterface
     {
         return [
             'Enlight_Controller_Action_PostDispatchSecure' => 'onPostDispatch',
-            'Enlight_Controller_Action_PostDispatch_Api'   => 'onPostDispatch',
-            'Enlight_Controller_Action_PreDispatch_Api'    => 'onPreDispatch'
+            'Enlight_Controller_Action_PostDispatch_Api'   => 'onPostDispatchApi',
+            'Enlight_Controller_Action_PreDispatch_Api'    => 'onPreDispatchApi'
         ];
     }
 
@@ -63,7 +63,7 @@ class Dispatch extends AbstractService implements SubscriberInterface
         return $this->logger = new Logger('apiLogger', [new RotatingFileHandler(Shopware()->Container()->getParameter('kernel.logs_dir') . '/api.log', 7)]);
     }
 
-    public function onPostDispatch(\Enlight_Event_EventArgs $args)
+    public function onPostDispatchApi(\Enlight_Event_EventArgs $args)
     {
         if ($this->config['api_log'] != 1) {
             return;
@@ -73,7 +73,7 @@ class Dispatch extends AbstractService implements SubscriberInterface
         $this->getLogger()->info('RESPONSE-CODE: ' . $controller->Response()->getHttpResponseCode());
     }
 
-    public function onPreDispatch(\Enlight_Event_EventArgs $args)
+    public function onPreDispatchApi(\Enlight_Event_EventArgs $args)
     {
         if ($this->config['api_log'] != 1) {
             return;
