@@ -70,7 +70,11 @@ class Dispatch extends AbstractService implements SubscriberInterface
         }
         /** @var $controller \Enlight_Controller_Action */
         $controller = $args->getSubject();
-        $this->getLogger()->info('RESPONSE-CODE: ' . $controller->Response()->getHttpResponseCode());
+        if ($this->config['api_log_verbose'] == 1) {
+            $this->getLogger()->info('RESPONSE: ' . $controller->Response()->getBody());
+        } else {
+            $this->getLogger()->info('RESPONSE-CODE: ' . $controller->Response()->getHttpResponseCode());
+        }
     }
 
     public function onPreDispatchApi(\Enlight_Event_EventArgs $args)
@@ -81,6 +85,10 @@ class Dispatch extends AbstractService implements SubscriberInterface
         /** @var $controller \Enlight_Controller_Action */
         $controller = $args->getSubject();
         $view = $controller->View();
-        $this->getLogger()->info('REQUEST: ' . $controller->Request()->getMethod() . ' - ' . $controller->Request()->getRequestUri());
+        if ($this->config['api_log_verbose'] == 1) {
+            $this->getLogger()->info('PAYLOAD: ' . $controller->Request()->getPost());
+        } else {
+            $this->getLogger()->info('REQUEST: ' . $controller->Request()->getMethod() . ' - ' . $controller->Request()->getRequestUri());
+        }
     }
 }

@@ -39,6 +39,24 @@
             </store>
         </element>
         <element type="select">
+            <name>api_log_verbose</name>
+            <label lang="de">Erweitertes API logging aktiviert</label>
+            <label lang="en">verbose API logging enabled</label>
+            <value>0</value>
+            <store>
+                <option>
+                    <value>1</value>
+                    <label lang="de">Ja</label>
+                    <label lang="en">Yes</label>
+                </option>
+                <option>
+                    <value>0</value>
+                    <label lang="de">Nein</label>
+                    <label lang="en">No</label>
+                </option>
+            </store>
+        </element>
+        <element type="select">
             <name>backend_design_enabled</name>
             <label lang="de">Angepasstes Backend-Design aktiviert</label>
             <label lang="en">customized backend-design enabled</label>

@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of FfuenfCommon.
 
+## 1.2.6 (November 13, 2020)
+
+* verbose API logging
+
 ## 1.2.5 (November 13, 2020)
 
 * add API logging
