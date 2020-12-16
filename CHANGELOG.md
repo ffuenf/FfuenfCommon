@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of FfuenfCommon.
 
+## 1.2.7 (December 16, 2020)
+
+* remove datadog frontend logging
+* remove datadog real user monitoring
+* add release commit
+
 ## 1.2.6 (November 13, 2020)
 
 * verbose API logging

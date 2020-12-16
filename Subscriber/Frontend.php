@@ -77,9 +77,6 @@ class Frontend extends AbstractService implements SubscriberInterface
     public function preloadFonts(\Enlight_Event_EventArgs $args)
     {
         $view = $args->getSubject()->View();
-        if ($this->config['datadog_frontend_logging_enabled'] == 1 && $this->config['datadog_client_token'] != '' && $this->config['datadog_application_id'] != '') {
-            $view->assign('datadog_enabled', true);
-        }
         if ($this->config['preloadFonts_enabled']) {
             $preloadFonts = [];
             if (in_array('shopware', $this->config['preloadFonts_standard'])) {

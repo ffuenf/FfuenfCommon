@@ -8,26 +8,3 @@
         {/foreach}
     {/if}
 {/block}
-
-{block name="frontend_index_header_javascript_tracking"}
-    {$smarty.block.parent}
-    {if $datadog_frontend_logging_enabled}
-        <script type="text/javascript" src="{$datadogLogsUrl}"></script>
-        <script>
-          window.DD_LOGS && DD_LOGS.init({
-            clientToken: "{$datadogClientToken}",
-            forwardErrorsToLogs: true,
-            sampleRate: 100
-          });
-        </script>
-    {/if}
-    {if $datadog_real_user_monitoring_enabled}
-        <script type="text/javascript" src="{$datadogRumUrl}"></script>
-        <script>
-          window.DD_RUM && window.DD_RUM.init({
-            clientToken: "{$datadogClientToken}",
-            applicationId: "{$datadogApplicationId}",
-          });
-        </script>
-    {/if}
-{/block}

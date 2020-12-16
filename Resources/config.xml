@@ -183,66 +183,6 @@
             </options>
         </element>
         <element type="select">
-            <name>datadog_frontend_logging_enabled</name>
-            <label lang="de">Javascript console logs und Nutzerinteraktionen im Frontend loggen mit DataDog</label>
-            <label lang="en">Monitor JavaScript console logs and user activity with Datadog</label>
-            <value>0</value>
-            <store>
-                <option>
-                    <value>1</value>
-                    <label lang="de">Ja</label>
-                    <label lang="en">Yes</label>
-                </option>
-                <option>
-                    <value>0</value>
-                    <label lang="de">Nein</label>
-                    <label lang="en">No</label>
-                </option>
-            </store>
-        </element>
-        <element type="select">
-            <name>datadog_real_user_monitoring_enabled</name>
-            <label lang="de">DataDog Real User Monitoring aktivieren</label>
-            <label lang="en">DataDog Real User Monitoring enabled</label>
-            <value>0</value>
-            <store>
-                <option>
-                    <value>1</value>
-                    <label lang="de">Ja</label>
-                    <label lang="en">Yes</label>
-                </option>
-                <option>
-                    <value>0</value>
-                    <label lang="de">Nein</label>
-                    <label lang="en">No</label>
-                </option>
-            </store>
-        </element>
-        <element type="text">
-            <name>datadog_logs_url</name>
-            <label lang="de">DataDog Log Monitoring URL</label>
-            <label lang="en">DataDog log monitoring url</label>
-            <value>https://www.datadoghq-browser-agent.com/datadog-logs-eu.js</value>
-        </element>
-        <element type="text">
-            <name>datadog_rum_url</name>
-            <label lang="de">DataDog Real User Monitoring URL</label>
-            <label lang="en">DataDog real user monitoring url</label>
-            <value>https://www.datadoghq-browser-agent.com/datadog-rum-eu.js</value>
-        </element>
-        <element type="text">
-            <name>datadog_client_token</name>
-            <label lang="de">DataDog Client-Token</label>
-            <label lang="en">DataDog client token</label>
-            <value></value>
-        </element>
-        <element type="text">
-            <name>datadog_application_id</name>
-            <label lang="de">DataDog Application ID</label>
-            <label lang="en">DataDog application id</label>
-            <value></value>
-        </element>
-        <element type="select">
             <name>preloadFonts_enabled</name>
             <label lang="de">Schriften vorladen aktivieren</label>
             <label lang="en">font preloading enabled</label>
@@ -284,6 +224,12 @@
             <label lang="de">Eigene Schriftarten vorladen</label>
             <description lang="en">Please enter URL file per line.</description>
             <description lang="de">Bitte eine URL pro Zeile angeben.</description>
+        </element>
+        <element type="text">
+            <name>releasecommit</name>
+            <label lang="de">Aktueller Commit</label>
+            <label lang="en">Current Commit</label>
+            <value></value>
         </element>
     </elements>
 </config>

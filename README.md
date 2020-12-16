@@ -16,7 +16,6 @@ Platform
 
 The following versions are supported and tested:
 
-* Shopware 5.5.x
 * Shopware 5.6.x
 
 Other versions are assumed to work.
@@ -24,10 +23,10 @@ Other versions are assumed to work.
 Requirements
 ------------
 
-|                                                                              | PHP 7.1           | PHP 7.2           | PHP 7.3           | PHP 7.4           |
-| ---------------------------------------------------------------------------- | ----------------- | ----------------- | ----------------- | ----------------- |
-| [EOL](https://secure.php.net/supported-versions.php) / SEC-FIX / STABLE / RC | EOL               | SEC-FIX           | **STABLE**        | **STABLE**        |
-| automated tests on [travis]                                                  | **required pass** | **required pass** | **required pass** | **required pass** |
+|                                                                              | PHP 7.2           | PHP 7.3           | PHP 7.4           |
+| ---------------------------------------------------------------------------- | ----------------- | ----------------- | ----------------- |
+| [EOL](https://secure.php.net/supported-versions.php) / SEC-FIX / STABLE / RC | EOL.              | **STABLE**        | **STABLE**        |
+| automated tests on [travis]                                                  | **required pass** | **required pass** | **required pass** |
 
 Shopware [officially supports PHP 5.6.4 and higher](https://community.shopware.com/Systemanforderungen_detail_1840.html#Server).
 
