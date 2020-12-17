@@ -2,8 +2,8 @@
 
 FfuenfCommon
 ============
-[![GitHub tag](https://img.shields.io/github/tag/ffuenf/docker-shopware-php.svg)](https://github.com/ffuenf/FfuenfCommon)
-[![Build Status](https://img.shields.io/travis/ffuenf/docker-shopware-php.svg)](https://travis-ci.org/ffuenf/FfuenfCommon)
+[![GitHub tag](https://img.shields.io/github/tag/ffuenf/FfuenfCommon.svg)](https://github.com/ffuenf/FfuenfCommon)
+[![Build Status](https://img.shields.io/travis/ffuenf/FfuenfCommon.svg)](https://travis-ci.org/ffuenf/FfuenfCommon)
 [![Code Quality](https://scrutinizer-ci.com/g/ffuenf/FfuenfCommon/badges/quality-score.png)](https://scrutinizer-ci.com/g/ffuenf/FfuenfCommon/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/ffuenf/FfuenfCommon/badges/coverage.png)](https://scrutinizer-ci.com/g/ffuenf/FfuenfCommon)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/ffuenf/FfuenfCommon/badges/code-intelligence.svg)](https://scrutinizer-ci.com/code-intelligence)
@@ -23,10 +23,10 @@ Other versions are assumed to work.
 Requirements
 ------------
 
-|                                                                              | PHP 7.2           | PHP 7.3           | PHP 7.4           |
+|                                                                              | PHP 7.3           | PHP 7.4           | PHP 8.0           |
 | ---------------------------------------------------------------------------- | ----------------- | ----------------- | ----------------- |
-| [EOL](https://secure.php.net/supported-versions.php) / SEC-FIX / STABLE / RC | EOL.              | **STABLE**        | **STABLE**        |
-| automated tests on [travis]                                                  | **required pass** | **required pass** | **required pass** |
+| [EOL](https://secure.php.net/supported-versions.php) / SEC-FIX / STABLE / RC | SEC-FIX           | **STABLE**        | **STABLE**        |
+| automated tests on [travis]                                                  | **allow failure** | **required pass** | **allow failure** |
 
 Shopware [officially supports PHP 5.6.4 and higher](https://community.shopware.com/Systemanforderungen_detail_1840.html#Server).
 

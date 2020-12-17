@@ -27,10 +27,17 @@ class Dispatch extends AbstractService implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
+            'Enlight_Controller_Action_PreDispatch'        => 'onPreDispatch',
             'Enlight_Controller_Action_PostDispatchSecure' => 'onPostDispatch',
             'Enlight_Controller_Action_PostDispatch_Api'   => 'onPostDispatchApi',
             'Enlight_Controller_Action_PreDispatch_Api'    => 'onPreDispatchApi'
         ];
+    }
+
+    public function onPreDispatch(\Enlight_Event_EventArgs $args)
+    {
+        $view = $args->getSubject()->View();
+        $view->assign('sReleaseCommit', $this->config['releasecommit']);
     }
 
     public function onPostDispatch(\Enlight_Event_EventArgs $args)
@@ -44,7 +51,6 @@ class Dispatch extends AbstractService implements SubscriberInterface
         if ($this->config['monitoredCronsOnDispatch']) {
             Shopware()->Container()->get('ffuenf_common.service.cron_monitoring')->check();
         }
-        $view->assign('releasecommit', $this->config['releasecommit']);
     }
 
     /**
