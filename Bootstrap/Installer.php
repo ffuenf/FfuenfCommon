@@ -35,8 +35,6 @@ class Installer
 
     public function install()
     {
-        $sql = file_get_contents($this->path . '/Resources/sql/install.sql');
-        $this->container->get('shopware.db')->query($sql);
         $mail = $this->container->get('models')->getRepository(Mail::class)->findOneBy(['name' => 'sCRONWARNING']);
         if ($mail instanceof Mail) {
             return $mail;
