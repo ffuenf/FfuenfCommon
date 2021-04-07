@@ -3,16 +3,9 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
-	<import resource="services/logger.xml"/>
+        <import resource="services/logger.xml"/>
     </imports>
     <services>
-        <service id="ffuenf_common.service.cron_monitoring" class="FfuenfCommon\Components\CronMonitoring">
-            <argument type="string">%ffuenf_common.plugin_name%</argument>
-            <argument type="string">%ffuenf_common.plugin_dir%</argument>
-            <argument type="service" id="service_container" />
-            <argument type="service" id="models" />
-            <argument type="service" id="dbal_connection" />
-        </service>
         <service id="ffuenf_common.subscriber.backend" class="FfuenfCommon\Subscriber\Backend">
             <argument type="string">%ffuenf_common.plugin_name%</argument>
             <argument type="string">%ffuenf_common.plugin_dir%</argument>
@@ -38,15 +31,12 @@
             <factory service="shopware.plugin.cached_config_reader" method="getByPluginName"/>
             <argument type="string">FfuenfCommon</argument>
         </service>
-        <service id="ffuenf_common.commands.cronmonitoring_check" class="FfuenfCommon\Commands\CronMonitoringCommand">
-            <tag name="console.command" command="ffuenf:cronmonitoring:check"/>
+        <service id="ffuenf_common.subscriber.frontend" class="FfuenfCommon\Subscriber\Frontend">
+            <argument type="string">%ffuenf_common.plugin_name%</argument>
+            <argument type="string">%ffuenf_common.plugin_dir%</argument>
+            <argument type="string">%ffuenf_common.view_dir%</argument>
+            <argument type="service" id="service_container" />
+            <tag name="shopware.event_subscriber" />
         </service>
-	<service id="ffuenf_common.subscriber.frontend" class="FfuenfCommon\Subscriber\Frontend">
-	    <argument type="string">%ffuenf_common.plugin_name%</argument>
-	    <argument type="string">%ffuenf_common.plugin_dir%</argument>
-	    <argument type="string">%ffuenf_common.view_dir%</argument>
-	    <argument type="service" id="service_container" />
-	    <tag name="shopware.event_subscriber" />
-	</service>
     </services>
 </container>

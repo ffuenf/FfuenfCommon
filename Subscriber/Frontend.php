@@ -6,7 +6,7 @@
  * @category   Shopware
  * @package    Shopware\Plugins\FfuenfCommon
  * @author     Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR
- * @copyright  Copyright (c) 2020, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
+ * @copyright  Copyright (c) 2021, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
  *
  */
 
@@ -56,7 +56,7 @@ class Frontend extends AbstractService implements SubscriberInterface
                 $newValues[] = $orderDetail;
             }
             $return['sOrderDetails'] = $newValues;
-        } catch (\Exception $e) {
+        } catch (\Exception $ex) {
             if ($this->config['debug']) {
                 $this->logger->log(100, $ex->getMessage());
             }
@@ -67,14 +67,14 @@ class Frontend extends AbstractService implements SubscriberInterface
     /**
      * @param \Enlight_Event_EventArgs $args
      */
-    public function onTemplateDirectoriesCollect(\Enlight_Event_EventArgs $args)
+    public function onTemplateDirectoriesCollect(Enlight_Event_EventArgs $args)
     {
         $dirs = $args->getReturn();
         $dirs[] = $this->viewDirectory;
         $args->setReturn($dirs);
     }
 
-    public function preloadFonts(\Enlight_Event_EventArgs $args)
+    public function preloadFonts(Enlight_Event_EventArgs $args)
     {
         $view = $args->getSubject()->View();
         if ($this->config['preloadFonts_enabled']) {

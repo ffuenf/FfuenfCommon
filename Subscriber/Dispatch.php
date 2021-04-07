@@ -6,7 +6,7 @@
  * @category   Shopware
  * @package    Shopware\Plugins\FfuenfCommon
  * @author     Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR
- * @copyright  Copyright (c) 2020, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
+ * @copyright  Copyright (c) 2021, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
  *
  */
 
@@ -28,29 +28,15 @@ class Dispatch extends AbstractService implements SubscriberInterface
     {
         return [
             'Enlight_Controller_Action_PreDispatch'        => 'onPreDispatch',
-            'Enlight_Controller_Action_PostDispatchSecure' => 'onPostDispatch',
             'Enlight_Controller_Action_PostDispatch_Api'   => 'onPostDispatchApi',
             'Enlight_Controller_Action_PreDispatch_Api'    => 'onPreDispatchApi'
         ];
     }
 
-    public function onPreDispatch(\Enlight_Event_EventArgs $args)
+    public function onPreDispatch(Enlight_Event_EventArgs $args)
     {
         $view = $args->getSubject()->View();
         $view->assign('sReleaseCommit', $this->config['releasecommit']);
-    }
-
-    public function onPostDispatch(\Enlight_Event_EventArgs $args)
-    {
-        $view = $args->getSubject()->View();
-        $request = $args->getRequest();
-        $response = $args->getResponse();
-        if (!$request->isDispatched() || $response->isException()) {
-            return;
-        }
-        if ($this->config['monitoredCronsOnDispatch']) {
-            Shopware()->Container()->get('ffuenf_common.service.cron_monitoring')->check();
-        }
     }
 
     /**
@@ -64,12 +50,11 @@ class Dispatch extends AbstractService implements SubscriberInterface
         return $this->logger = new Logger('apiLogger', [new RotatingFileHandler(Shopware()->Container()->getParameter('kernel.logs_dir') . '/api.log', 7)]);
     }
 
-    public function onPostDispatchApi(\Enlight_Event_EventArgs $args)
+    public function onPostDispatchApi(Enlight_Event_EventArgs $args)
     {
         if ($this->config['api_log'] != 1) {
             return;
         }
-        /** @var $controller \Enlight_Controller_Action */
         $controller = $args->getSubject();
         if ($this->config['api_log_verbose'] == 1) {
             $this->getLogger()->info('RESPONSE-CODE: ' . $controller->Response()->getHttpResponseCode() . ' RESPONSE: ' . $controller->Response()->getBody());
@@ -78,12 +63,11 @@ class Dispatch extends AbstractService implements SubscriberInterface
         }
     }
 
-    public function onPreDispatchApi(\Enlight_Event_EventArgs $args)
+    public function onPreDispatchApi(Enlight_Event_EventArgs $args)
     {
         if ($this->config['api_log'] != 1) {
             return;
         }
-        /** @var $controller \Enlight_Controller_Action */
         $controller = $args->getSubject();
         $view = $controller->View();
         if ($this->config['api_log_verbose'] == 1) {
@@ -97,4 +81,5 @@ class Dispatch extends AbstractService implements SubscriberInterface
             $this->getLogger()->info('REQUEST: ' . $controller->Request()->getMethod() . ' - ' . $controller->Request()->getRequestUri());
         }
     }
+
 }

@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of FfuenfCommon.
 
+## 2.0.0 (April 7, 2021)
+
+* remove datadog from plugin
+* remove cron monitoring from plugin
 ## 1.2.8 (December 17, 2020)
 
 * fix release commit

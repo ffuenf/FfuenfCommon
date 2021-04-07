@@ -6,7 +6,7 @@
  * @category   Shopware
  * @package    Shopware\Plugins\FfuenfCommon
  * @author     Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR
- * @copyright  Copyright (c) 2020, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
+ * @copyright  Copyright (c) 2021, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
  *
  */
 
@@ -21,7 +21,7 @@ use Shopware\Components\Plugin\Context\UpdateContext;
 use Shopware\Components\Plugin\Context\EnableContext;
 use Shopware\Components\Plugin\Context\DisableContext;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Shopware\Models\Mail\Mail;
+use FfuenfCommon\Bootstrap\Installer;
 
 class FfuenfCommon extends Plugin
 {
@@ -61,7 +61,11 @@ class FfuenfCommon extends Plugin
      */
     public function install(InstallContext $context)
     {
-        $this->createMail();
+        $installer = new Installer(
+            $this->getPath(),
+            $this->container
+        );
+        $installer->install();
         $context->scheduleClearCache(InstallContext::CACHE_LIST_ALL);
     }
 
@@ -73,6 +77,7 @@ class FfuenfCommon extends Plugin
         if ($this->isDependentPluginsActive()) {
             throw new \Exception("Unable to uninstall plugin! There are Plugins installed which may depend on this plugin! Please uninstall them first!", 1);
         }
+        Shopware()->Db()->query("DELETE FROM s_core_snippets WHERE namespace = 'frontend/plugins/".$this->pluginName."';");
         $context->scheduleClearCache(UninstallContext::CACHE_LIST_ALL);
     }
 
@@ -81,7 +86,15 @@ class FfuenfCommon extends Plugin
      */
     public function update(UpdateContext $context)
     {
-        $this->createMail();
+        $installer = new Installer(
+            $this->getPath(),
+            $this->container
+        );
+        $currentVersion = $context->getCurrentVersion();
+        $updateVersion = $context->getUpdateVersion();
+        if (version_compare($currentVersion, '2.0.0', '<')) {
+            $installer->update200();
+        }
         $context->scheduleClearCache(UpdateContext::CACHE_LIST_ALL);
     }
 
@@ -139,42 +152,5 @@ class FfuenfCommon extends Plugin
             $FfuenfCacheWarmUpJob->setNext($ClearHttpCacheJobNext);
         }
         $this->container->get('cron')->updateJob($FfuenfCacheWarmUpJob);
-    }
-
-    /**
-     * This function create a new mail template.
-     *
-     * @throws Enlight_Exception
-     */
-    private function createMail()
-    {
-        $mail = $this->container->get('models')->getRepository(Mail::class)->findOneBy(['name' => 'sCRONWARNING']);
-        if ($mail instanceof Mail) {
-            return $mail;
-        }
-        $mail = new Mail();
-        $mail->setDirty(true);
-        $mail->setName('sCRONWARNING');
-        $mail->setFromMail('{config name=mail}');
-        $mail->setFromName('{config name=shopName}');
-        $mail->setSubject('ATTENTION: inactive cronjobs');
-        $mail->setMailtype(Mail::MAILTYPE_SYSTEM);
-        $mail->setIsHtml(true);
-        $mail->setContent('Cron Monitoring
-
-ATTENTION - there are inactive cronjobs:
-{foreach item=cron from=$downCrons}
-- {$cron.name} ({$cron.action}) - last run: {$cron.end}
-{/foreach}');
-        $mail->setContentHtml('<b>Cron Monitoring</b>
-<br /><br />ATTENTION - there are inactive cronjobs:<br /><br />
-<ul>{foreach item=cron from=$downCrons}<li>{$cron.name} ({$cron.action}) - last run: {$cron.end}</li>{/foreach}</ul>');
-        try {
-            $this->container->get('models')->persist($mail);
-            $this->container->get('models')->flush();
-        } catch (Exception $e) {
-            throw new Enlight_Exception("E-Mail-Template sCRONWARNING couldn't be created!");
-        }
-        return $mail;
     }
 }

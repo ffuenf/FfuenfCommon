@@ -6,7 +6,7 @@
  * @category   Shopware
  * @package    Shopware\Plugins\FfuenfCommon
  * @author     Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR
- * @copyright  Copyright (c) 2020, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
+ * @copyright  Copyright (c) 2021, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
  *
  */
 

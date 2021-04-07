@@ -6,7 +6,7 @@
  * @category   Shopware
  * @package    Shopware\Plugins\FfuenfCommon
  * @author     Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR
- * @copyright  Copyright (c) 2020, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
+ * @copyright  Copyright (c) 2021, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
  *
  */
 
@@ -61,12 +61,12 @@ abstract class AbstractService
      */
     public function __construct(string $pluginName, string $pluginDirectory, string $viewDirectory, ContainerInterface $container)
     {
-        $this->pluginName           = $pluginName;
-        $this->pluginDirectory      = $pluginDirectory;
-        $this->viewDirectory        = $viewDirectory;
-        $this->container            = $container;
-        $this->templateManager      = $this->container->get('template');
-        $this->config               = $this->container->get('shopware.plugin.config_reader')->getByPluginName($this->pluginName);
-        $this->logger               = $this->container->get('pluginlogger');
+        $this->pluginName      = $pluginName;
+        $this->pluginDirectory = $pluginDirectory;
+        $this->viewDirectory   = $viewDirectory;
+        $this->container       = $container;
+        $this->templateManager = $this->container->get('template');
+        $this->config          = $this->container->get('shopware.plugin.config_reader')->getByPluginName($this->pluginName);
+        $this->logger          = $this->container->get('pluginlogger');
     }
 }
