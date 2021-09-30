@@ -16,7 +16,7 @@ Platform
 
 The following versions are supported and tested:
 
-* Shopware 5.6.x
+* Shopware 5.7.x
 
 Other versions are assumed to work.
 
@@ -26,16 +26,14 @@ Requirements
 |                                                                              | PHP 7.3           | PHP 7.4           | PHP 8.0           |
 | ---------------------------------------------------------------------------- | ----------------- | ----------------- | ----------------- |
 | [EOL](https://secure.php.net/supported-versions.php) / SEC-FIX / STABLE / RC | SEC-FIX           | **STABLE**        | **STABLE**        |
-| automated tests on [travis]                                                  | **allow failure** | **required pass** | **allow failure** |
-
-Shopware [officially supports PHP 5.6.4 and higher](https://community.shopware.com/Systemanforderungen_detail_1840.html#Server).
+| automated tests on [travis]                                                  | **allow failure** | **allow failure** | **require pass**  |
 
 Installation
 ------------
 
 via zip:
 
-* Download the [latest plugin version](https://github.com/Ffuenf/FfuenfCommon/releases/latest/) (e.g. `FfuenfCommon-1.2.0.zip`)
+* Download the [latest plugin version](https://github.com/Ffuenf/FfuenfCommon/releases/latest/) (e.g. `FfuenfCommon-3.0.0.zip`)
 * Upload and install the plugin using the Plugin-Manager
 
 via git:
@@ -78,7 +76,7 @@ License and Author
 ------------------
 
 - Author:: Achim Rosenhagen (<a.rosenhagen@ffuenf.de>)
-- Copyright:: 2020, ffuenf
+- Copyright:: 2021, ffuenf
 
 The MIT License (MIT)
 

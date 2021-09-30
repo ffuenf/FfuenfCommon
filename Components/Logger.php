@@ -49,7 +49,7 @@ class Logger extends BaseLogger
     /**
      * {@inheritdoc}
      */
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         $stacktrace = debug_backtrace();
         $message = $stacktrace[1]['class'] . ':' . $stacktrace[1]['function'] . '(' . $stacktrace[0]['line'].') ' . $message;
