@@ -27,7 +27,8 @@ class Frontend extends AbstractService implements SubscriberInterface
         return [
             'Theme_Inheritance_Template_Directories_Collected'      => 'onTemplateDirectoriesCollect',
             'Enlight_Controller_Action_PostDispatchSecure_Frontend' => 'preloadFonts',
-            'Shopware_Modules_Order_SendMail_FilterVariables'       => 'onSendMailFilterVariables'
+            'Shopware_Modules_Order_SendMail_FilterVariables'       => 'onSendMailFilterVariables',
+            'TemplateMail_CreateMail_MailContext'                   => 'onSendMailFilterVariables'
         ];
     }
 
@@ -61,6 +62,7 @@ class Frontend extends AbstractService implements SubscriberInterface
                 $this->logger->log(100, $ex->getMessage());
             }
         }
+        $return['attributes']['attribute1'] = "My text";
         return $return;
     }
 

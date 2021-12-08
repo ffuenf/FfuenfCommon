@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of FfuenfCommon.
 
+## 2.0.1 (December 8, 2021)
+
+* fix proper SEO-Link for product to transactional emails
+
 ## 2.0.0 (April 7, 2021)
 
 * remove datadog from plugin
