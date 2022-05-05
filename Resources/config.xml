@@ -129,11 +129,5 @@
             <description lang="en">Please enter URL file per line.</description>
             <description lang="de">Bitte eine URL pro Zeile angeben.</description>
         </element>
-        <element type="text">
-            <name>releasecommit</name>
-            <label lang="de">Aktueller Commit</label>
-            <label lang="en">Current Commit</label>
-            <value></value>
-        </element>
     </elements>
 </config>

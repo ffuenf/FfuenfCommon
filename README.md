@@ -76,7 +76,7 @@ License and Author
 ------------------
 
 - Author:: Achim Rosenhagen (<a.rosenhagen@ffuenf.de>)
-- Copyright:: 2021, ffuenf
+- Copyright:: 2022, ffuenf
 
 The MIT License (MIT)
 

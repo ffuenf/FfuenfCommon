@@ -6,7 +6,7 @@
  * @category   Shopware
  * @package    Shopware\Plugins\FfuenfCommon
  * @author     Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR
- * @copyright  Copyright (c) 2021, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
+ * @copyright  Copyright (c) 2022, Achim Rosenhagen / ffuenf - Pra & Rosenhagen GbR (https://www.ffuenf.de)
  *
  */
 
@@ -27,16 +27,9 @@ class Dispatch extends AbstractService implements SubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'Enlight_Controller_Action_PreDispatch'        => 'onPreDispatch',
-            'Enlight_Controller_Action_PostDispatch_Api'   => 'onPostDispatchApi',
-            'Enlight_Controller_Action_PreDispatch_Api'    => 'onPreDispatchApi'
+            'Enlight_Controller_Action_PostDispatch_Api' => 'onPostDispatchApi',
+            'Enlight_Controller_Action_PreDispatch_Api'  => 'onPreDispatchApi'
         ];
-    }
-
-    public function onPreDispatch(Enlight_Event_EventArgs $args)
-    {
-        $view = $args->getSubject()->View();
-        $view->assign('sReleaseCommit', $this->config['releasecommit']);
     }
 
     /**

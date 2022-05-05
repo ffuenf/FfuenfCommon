@@ -1,6 +1,10 @@
 # CHANGELOG for FfuenfCommon
 
 This file is used to list changes made in each version of FfuenfCommon.
+
+## 3.0.1 (May 5, 2022)
+
+* remove releasecommit
 ## 3.0.0 (September 30, 2021)
 
 * compatibility to shopware 5.7.*
